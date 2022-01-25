@@ -178,6 +178,12 @@ wc(gaudy,1,0).
 wc(gaudy,2,20).
 wc(gaudy,3,3).
 wc(gaudy,4,24).
+word(gayal).
+wc(gayal,0,6).
+wc(gayal,1,0).
+wc(gayal,2,24).
+wc(gayal,3,0).
+wc(gayal,4,11).
 word(vodka).
 wc(vodka,0,21).
 wc(vodka,1,14).
