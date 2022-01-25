@@ -17,8 +17,8 @@ noccurs(W,Char):- word(W),char(Char),#count{Pos:wc(W,Pos,Char)}=0.
 hint(X,Pos,0):- wc(X,Pos,Char),target(Y), wc(Y,Pos,Char). 
 
 % If the character Char at position Pos in X is at some position in the target and the number of occurances of the character in X is less than or equal to the target.
-hint(X,Pos,1):- wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char),
-Pos2!=Pos,#count{P:wc(X,P,Char)}=R,#count{P:wc(Y,P,Char)}=R1, R<=R1. 
+hint(X,Pos,1):- not hint(X,Pos,0), wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char), Pos2!=Pos,#count{P:wc(X,P,Char)}=R,
+#count{P:wc(Y,P,Char)}=R1, R<=R1. 
 
 % If the character Char at position Pos in X is at some position in the target and occurs once more than the %character occurs in the target. Then every occurence which is not in the right location, except the last, are given hint 1.
 hint(X,Pos,1):- not hint(X,Pos,0), wc(X,Pos,Char),target(Y), 
