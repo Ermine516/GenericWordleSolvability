@@ -4,6 +4,12 @@ wc(cigar,1,8).
 wc(cigar,2,6).
 wc(cigar,3,0).
 wc(cigar,4,17).
+word(aerie).
+wc(aerie,0,0).
+wc(aerie,1,4).
+wc(aerie,2,17).
+wc(aerie,3,8).
+wc(aerie,4,4).
 word(rebut).
 wc(rebut,0,17).
 wc(rebut,1,4).
