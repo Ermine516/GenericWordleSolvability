@@ -1,4 +1,4 @@
-# GenericWordleSovability
+# GenericWordleSolvability
 ASP encoding of Wordle addressing the following question:
 
 given a target word W, starting word S, and n guesses, is there a sequence of n-1 words, where s is the first word in the sequence, such that the only logic choice, based on the hints, for the nth word is W.
