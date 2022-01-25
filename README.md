@@ -31,7 +31,7 @@ Example One:
 ```
 Example Two:
   ```
-		clingo wordle_hard.lp word_list/words_Fourth.lp -c n=4 -c w=tares -c s=gayal
+  clingo wordle_hard.lp word_list/words_fourth.lp -c n=4 -c w=tares -c s=gayal
   clingo version 5.5.0
   Reading from wordle_hard.lp ...
   Solving...
