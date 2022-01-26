@@ -12,7 +12,7 @@ n>1.
 occurs(W,Char):- word(W),char(Char), #count{Pos:wc(W,Pos,Char)}>0.
 
 % when a character Char does not occur in word W
-noccurs(W,Char):- not occurs(W,Char).
+noccurs(W,Char):- word(W),char(Char), #count{Pos:wc(W,Pos,Char)}=0.
 
 % If the character Char at position Pos in X is the same as at position Pos in the target.
 hint(X,Pos,0):- wc(X,Pos,Char),target(Y), wc(Y,Pos,Char). 
@@ -21,30 +21,18 @@ hint(X,Pos,0):- wc(X,Pos,Char),target(Y), wc(Y,Pos,Char).
 hint(X,Pos,1):- not hint(X,Pos,0), wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char), Pos2!=Pos,#count{P:wc(X,P,Char)}=R,
 #count{P:wc(Y,P,Char)}=R1, R<=R1. 
 
-% If the character Char at position Pos in X is at some position in the target and occurs once more than the %character occurs in the target. Then every occurence which is not in the right location, except the last, are given hint 1.
-hint(X,Pos,1):- not hint(X,Pos,0), wc(X,Pos,Char),target(Y), 
-wc(Y,Pos2,Char),Pos2!=Pos, #max{P:not hint(X,P,0),wc(X,P,Char)}=Posmax,
-Pos<Posmax, #count{P:wc(X,P,Char)}=R,#count{P:wc(Y,P,Char)}=R1, R=R1+1. 
+% If the character Char at position Pos in X is at some position in the target and occurs once more than the character occurs in the target. Then every one of the excess occurances is not  given hint level 1.
 
-% If the character Char at position Pos in X is at some position in the target and occurs twice more than the %character occurs in the target. Then every occurence which is not in the right location, except the last two, are given hint 1.
-hint(X,Pos,1):- not hint(X,Pos,0), wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char),
-Pos2!=Pos, #max{P:not hint(X,P,0),wc(X,P,Char), wc(X,P2,Char),P<P2}=Posmax,
-Pos<Posmax,#count{P:wc(X,P,Char)}=R,#count{P:wc(Y,P,Char)}=R1, R=R1+2. 
+hint(X,Pos,1):- not hint(X,Pos,0), wc(X,Pos,Char),target(Y), 
+wc(Y,Pos2,Char),Pos2!=Pos, #count{P: Pos<P,not hint(X,P,0),wc(X,P,Char)}=N,
+#count{P:wc(X,P,Char)}=R,#count{P:wc(Y,P,Char)}=R1, M=R1-R,M>0,N>=M. 
 
 % If the character at position Pos in X is at no position in the target.
 hint(X,Pos,2):- wc(X,Pos,Char),target(Y), noccurs(Y,Char). 
 
 %Setting excess occurances to hint level 2
-hint(X,Pos,2):- 
-not hint(X,Pos,0), not hint(X,Pos,1),wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char),
-Pos2!=Pos, #max{P:not hint(X,P,0),wc(X,P,Char)}=Pos,
-#count{P:wc(X,P,Char)}=R,#count{P:wc(Y,P,Char)}=R1, R=R1+1. 
+hint(X,Pos,2):- not hint(X,Pos,0), not hint(X,Pos,1),wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char),Pos2!=Pos. 
 
-%Setting excess occurances to hint level 2
-hint(X,Pos,2):- 
-not hint(X,Pos,0), not hint(X,Pos,1), wc(X,Pos,Char),target(Y), wc(Y,Pos2,Char),
-Pos2!=Pos, #max{P:not hint(X,P,0),wc(X,P,Char), wc(X,P2,Char),P<P2}=Posmax,
-Posmax<=Pos,#count{P:wc(X,P,Char)}=R,#count{P:wc(Y,P,Char)}=R1, R=R1+2. 
 
 %Each word which is not the target may be a solution. At most n solutions. 
 1{ sol(X,Z):word(X),pos(Z),X!= Y}n:-target(Y).
