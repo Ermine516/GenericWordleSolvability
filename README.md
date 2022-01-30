@@ -42,3 +42,10 @@ Example Two:
   Time         : 229.411s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
   CPU Time     : 229.380s
 	```
+Best_First_Word:
+	Code finds the best word to play first by summing up the score for each guess against either the answer set or both the answer set and the guess set together. A CSV is constructed with can be sorted to provide the answer. The smaller the sum the better. 
+	
+	Running 'python Best_First.py join' results in 'soare' being the best word, i.e. comparision to the answer set alone. 
+	Running 'python Best_First.py' results in 'tares' being the best word, i.e. comparision to the answer set together with the guess set. 
+	
+The latter is closer to the real setting under which wordle is played as the only information you can get is whether your word is acceptable or not, not if it is answer set or not. 
