@@ -9,7 +9,7 @@
 \begin{document}
 \maketitle
 \section{Set Cover}
-Let  $\mathcal{U}$ be a set of objects and $\mathcal{S}$ a set of sets such that $\mathcal{U} =\bigcup_{S_i\in \mathcal{S}} S_i$. Does there exists a subset $S'$ of $\mathcal{S}$, such that $\vert S'\vert \leq n< \vert \mathcal{S}\vert$ and 
+Let $k\geq 1$,  $\mathcal{U}= \{t^{i}\}^{k}_{i=1}$ and $\mathcal{S}$ a set of sets such that $\mathcal{U} =\bigcup_{S_i\in \mathcal{S}} S_i$. Does there exists a subset $S'$ of $\mathcal{S}$, such that $\vert S'\vert \leq n< \vert \mathcal{S}\vert$ and 
 $\mathcal{U} =\bigcup_{S_i\in S'} S_i$?
 
 \section{Wordle}
@@ -34,11 +34,10 @@ For $w,w'\in S$, we say that $f_t(w)$ excludes a word $w'$ if one of the followi
 \end{definition}
 
 \section{Reduction from Set Cover to Wordle}
-Let $\mathcal{A}=\{\alpha_{i}\}^{\vert\mathcal{S}\vert+\vert \mathcal{U}\vert+1}_{i=1}$, $S= \{\alpha_1\cdots\alpha_{\vert\mathcal{S}\vert+1}\} \cup \bigcup_{t\in \mathcal{U}} w_t$, where 
+Let $\mathcal{A}=\{\alpha_{i}\}^{\vert\mathcal{S}\vert+\vert \mathcal{U}\vert+1}_{i=1}$, $S= \{\alpha_1\cdots\alpha_{\vert\mathcal{S}\vert+1}\} \cup \bigcup_{1\leq j\leq k} w^{t^j}$, where 
 \begin{itemize}
-\item if $t\in S_i$, then $w^t_i = \alpha_i$
-\item if $t\not  \in S_i $, then $w^t_i=\beta$ for some $\beta\in \mathcal{A}\setminus\{\alpha_1\cdots \alpha_{\vert\mathcal{S}\vert+1}\}$
-\item for $t,r\in \mathcal{U}$ then $w_t = w_r$ iff $t=r.$
+\item if $t^j\in S_i$, then $w^{t^j}_i = \alpha_i$  
+\item if $t^j\not  \in S_i $, then $w^{t^j}_i=\alpha_{j+\vert\mathcal{S}\vert+1}$ 
 \end{itemize}
 
 \end{document}
