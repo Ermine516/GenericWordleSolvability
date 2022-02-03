@@ -5,6 +5,8 @@ given a target word W, starting word S, and n guesses, is there a sequence of n-
 
 written using clingo version 5.5.0
 
+Additionally, in the directory NP-Completeness, one will find a reduction from the set cover to deciding if a wordle task is solvable in n+1 steps. By solvable we mean there exists a set of words of size at most n whose hints exclude every word but the answer. Note this result concerns a generalization of the problem. 
+
 How to Run:
   ```
   clingo wordle_hard.lp word_list/words_fifth.lp -c n=5 -c s=tares -c w=along
