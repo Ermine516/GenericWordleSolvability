@@ -10,7 +10,7 @@
 \maketitle
 \section{Set Cover}
 Let  $\mathcal{U}$ be a set of objects and $\mathcal{S}$ a set of sets such that $\mathcal{U} =\bigcup_{S_i\in \mathcal{S}} S_i$. Does there exists a subset $S'$ of $\mathcal{S}$, such that $\vert S'\vert \leq n< \vert \mathcal{S}\vert$ and 
-$\mathcal{U} =\bigcup_{S_i\in S'} S_i$.
+$\mathcal{U} =\bigcup_{S_i\in S'} S_i$?
 
 \section{Wordle}
 Let $\mathcal{A}= \{\alpha_{i}\}^{l}_{i=1}$ be an alphabet, $\mathcal{A}^{m} =\{ \alpha_{i_1}\cdots \alpha_{i_m}\vert 1\leq j\leq m\ \& \ 1\leq i_j\leq l\}$,  $S\subseteq A^m$, $t\in S$, and  $f_t:S\rightarrow \{0,1,2\}^m$ is a scoring function, defined as $f_t(w) = \left\langle f_t^1(w),\cdots, f_t^{m}(w)\right\rangle$ where
@@ -20,7 +20,7 @@ $$f_t^i(w) =\left\lbrace \begin{array}{cc}
 1 & w_i \not = t_i\ \&\ \exists j(w_i = t_j \ \& \ \forall k< i(w_k =w_i \rightarrow \exists r< j (w_k=t_r)))\\
 2 & otherwise
 \end{array}\right.$$
-Does there exists a subset $S'$ of $S\setminus \{t\}$ such that $\vert S'\vert \leq n< \vert S\vert-1 $ and $t$ is the only word not excluded by the set of constraints $\{f_t(w)\vert w\in S'\}$. 
+Does there exists a subset $S'$ of $S\setminus \{t\}$ such that $\vert S'\vert \leq n< \vert S\vert-1 $ and $t$ is the only word not excluded by the set of constraints $\{f_t(w)\vert w\in S'\}$?
 
 \begin{definition}
 For $w,w'\in S$, we say that $f_t(w)$ excludes a word $w'$ if one of the following holds: 
