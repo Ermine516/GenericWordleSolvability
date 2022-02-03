@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{David Cerna}
+\title{Wordle is NP-Complete}
+\newtheorem{definition}{Definition}
+\begin{document}
+\maketitle
+\section{Set Cover}
+Let  $\mathcal{U}$ be a set of objects and $\mathcal{S}$ a set of sets such that $\mathcal{U} =\bigcup_{S_i\in \mathcal{S}} S_i$. Does there exists a subset $S'$ of $\mathcal{S}$, such that $\vert S'\vert \leq n< \vert \mathcal{S}\vert$ and 
+$\mathcal{U} =\bigcup_{S_i\in S'} S_i$.
+
+\section{Wordle}
+Let $\mathcal{A}= \{\alpha_{i}\}^{l}_{i=1}$ be an alphabet, $\mathcal{A}^{m} =\{ \alpha_{i_1}\cdots \alpha_{i_m}\vert 1\leq j\leq m\ \& \ 1\leq i_j\leq l\}$,  $S\subseteq A^m$, $t\in S$, and  $f_t:S\rightarrow \{0,1,2\}^m$ is a scoring function, defined as $f_t(w) = \left\langle f_t^1(w),\cdots, f_t^{m}(w)\right\rangle$ where
+
+$$f_t^i(w) =\left\lbrace \begin{array}{cc}
+0 &  w_i = t_i \\
+1 & w_i \not = t_i\ \&\ \exists j(w_i = t_j \ \& \ \forall k< i(w_k =w_i \rightarrow \exists r< j (w_k=t_r)))\\
+2 & otherwise
+\end{array}\right.$$
+Does there exists a subset $S'$ of $S\setminus \{t\}$ such that $\vert S'\vert \leq n< \vert S\vert-1 $ and $t$ is the only word not excluded by the set of constraints $\{f_t(w)\vert w\in S'\}$. 
+
+\begin{definition}
+For $w,w'\in S$, we say that $f_t(w)$ excludes a word $w'$ if one of the following holds: 
+
+\begin{itemize}
+\item $f_t^i(w) = 0$ and $w_i\not= w'_i $. 
+\item $f_t^i(w) = 1$ and $w_i \not \in w'$.
+\item $f_t^i(w) = 2$, $\forall j( w_i = w_j\rightarrow f_t^j(w) = 2)$ and $w_i\in w'$.
+\item $f_t^i(w) = 2$,  $\exists j( w_i = w_j \ \&\ f_t^j(w) < 2 \ \& \ \vert\{j\vert w_i=w_j\}\vert\leq \vert\{j\vert w_i=w'_j\}\vert)$.
+\end{itemize}
+\end{definition}
+
+\section{Reduction from Set Cover to Wordle}
+Let $\mathcal{A}=\{\alpha_{i}\}^{\vert\mathcal{S}\vert+\vert \mathcal{U}\vert+1}_{i=1}$, $S= \{\alpha_1\cdots\alpha_{\vert\mathcal{S}\vert+1}\} \cup \bigcup_{t\in \mathcal{U}} w_t$, where 
+\begin{itemize}
+\item if $t\in S_i$, then $w^t_i = \alpha_i$
+\item if $t\not  \in S_i $, then $w^t_i=\beta$ for some $\beta\in \mathcal{A}\setminus\{\alpha_1\cdots \alpha_{\vert\mathcal{S}\vert+1}\}$
+\item for $t,r\in \mathcal{U}$ then $w_t = w_r$ iff $t=r.$
+\end{itemize}
+
+\end{document}
