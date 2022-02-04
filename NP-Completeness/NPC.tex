@@ -14,7 +14,6 @@ $\mathcal{U} =\bigcup_{S_i\in S'} S_i$?
 
 \section{Wordle}
 Let $\mathcal{A}= \{\alpha_{i}\}^{l}_{i=1}$ be an alphabet, $\mathcal{A}^{m} =\{ \alpha_{i_1}\cdots \alpha_{i_m}\vert 1\leq j\leq m\ \& \ 1\leq i_j\leq l\}$,  $S\subseteq A^m$, $t\in S$, and  $f_t:S\rightarrow \{0,1,2\}^m$ is a scoring function, defined as $f_t(w) = \left\langle f_t^1(w),\cdots, f_t^{m}(w)\right\rangle$ where
-
 $$f_t^i(w) =\left\lbrace \begin{array}{cc}
 0 &  w_i = t_i \\
 1 & w_i \not = t_i\ \&\ \exists j(w_i = t_j \ \& \ \forall k< i(w_k =w_i \rightarrow \exists r< j (w_k=t_r)))\\
@@ -36,8 +35,8 @@ For $w,w'\in S$, we say that $f_t(w)$ excludes a word $w'$ if one of the followi
 \section{Reduction from Set Cover to Wordle}
 Let $\mathcal{A}=\{\alpha_{i}\}^{\vert\mathcal{S}\vert+\vert \mathcal{U}\vert+1}_{i=1}$, $S= \{\alpha_1\cdots\alpha_{\vert\mathcal{S}\vert+1}\} \cup \bigcup_{1\leq j\leq k} w^{t^j}$, where 
 \begin{itemize}
-\item if $t^j\in S_i$, then $w^{t^j}_i = \alpha_i$  
-\item if $t^j\not  \in S_i $, then $w^{t^j}_i=\alpha_{j+\vert\mathcal{S}\vert+1}$ 
+\item if $t^j\in S_i$, then $w^{t^j}_i = \alpha_i$ 
+\item if $t^j\not  \in S_i $ or $i=\vert\mathcal{S}\vert+1$, then $w^{t^j}_i=\alpha_{j+\vert\mathcal{S}\vert+1}$ 
 \end{itemize}
 
 \end{document}
