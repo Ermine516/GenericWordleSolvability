@@ -7,9 +7,13 @@
 \author{David Cerna}
 \title{Wordle is NP-Complete}
 \newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newenvironment{proof}{\paragraph{Proof:}}{\hfill$\square$}
 \begin{document}
 \maketitle
-\section{Dominating Set Cover}
+
+
+\section{Dominating Set}
 Let $k\geq 1$,  and $G = (V, E)$ an undirected graph. Does there exists $D\subseteq V$ of size $\leq k$ such that for every $v\not \in D$ there exists a $w\in D$ such that $(v,w)\in E$.
 
 \section{Wordle}
@@ -32,14 +36,15 @@ For $w,w'\in S$, we say that $f_t(w)$ excludes a word $w'$ if one of the followi
 \end{itemize}
 \end{definition}
 
+
 \section{Reduction from dominating set to Wordle}
 First we need to construct a graph $K = (V,E')$ such that $E' =B\cup R$ where $B=E$ and $R =\{ (v,w)\vert v,w\in V \ and \ (v,w)\not \in E\}$. Let $\mathit{NR}(v) =\{ (v,w)\vert w\in V,\ and \ (v,w)\in R\}$ and
 $\mathit{NB}(v) =\{ (v,w)\vert w\in V,\ and \ (v,w)\in B\}$.
 
 
 Note that $K$ is complete. Our alphabet $\mathcal{A}$ contains 
-$\vert V\vert^2\vert B\vert$ letters which we denote as follows
-$$\{\alpha_{i}\}^{\vert B\vert}_{i=1}\cup \{\beta_{i}\}^{(\vert V\vert^2-1)\vert B\vert}_{i=1}$$
+$\vert V\vert+\vert B\vert+1$ letters which we denote as follows
+$$\{\alpha_{i}\}^{\vert B\vert}_{i=1}\cup \{\beta_{i}\}^{\vert V\vert+1}_{i=1}$$
 
 In total we construct $\vert V\vert+1$ words denoted by $\{ t\}\cup \{w^{i}\}^{\vert V\vert}_{i=1}$. Let $ B  = \{b_{i}\}^{\vert B\vert}
 _{i=1}$, $ R  = \{r_{i}\}^{\vert R\vert}
@@ -50,9 +55,10 @@ _{i=1}$, and  $ V  = \{v_{i}\}^{\vert V\vert}_{i=1}$, then
 
 \item for $1\leq i \leq \vert V\vert$ and $\vert B\vert +1+\sum_{k=1}^{i-1} \mathit{NR}(V_{k})\leq l\leq j \leq \vert B\vert +1+\sum_{k=1}^{i} \mathit{NR}(V_{k}),$ $w^i_j \in \{\alpha_{i}\}^{\vert B\vert}_{i=1}$ such that $w^i_j \not = w^i_l$ iff $j\not = l$, and for all $1\leq q \leq \vert B\vert$, $w^i_j\not = w^i_q$. 
 \item $1\leq i \leq \vert B\vert$, $t_{i+\vert B\vert +1+\sum_{k=1}^{\vert V\vert} \mathit{NR}(V_{k})} = \alpha_i$
-\item All positions not mentioned contain a unique symbol from $\{\beta_{i}\}^{(\vert V\vert^2-1)\vert B\vert}_{i=1}$.
+\item All positions in $w^i$ not mentioned above contain $\beta_i$.
+\end{itemize}
 
-Notice, each of these words is $\vert V\vert \vert B\vert$ long. 
+Notice, each of these words is $\vert V\vert \vert B\vert+1$ long. 
 \section{example}
 
 The graph below has a minimal dominating sets of $\{ v_3,v_5\}$ and $\{ v_2,v_5\}$.
@@ -100,67 +106,70 @@ We transform the graph preserving the edges using colors.
 \draw[blue,thick] (5) -- (6);
 \end{tikzpicture} 
 \end{center}
-\end{itemize}
 
 From the transformed graph we need to construct words for each vertex. The idea is that words connected by a blue edge exclude each other and words connected by a red edge don't. 
 
 $$\begin{array}{c|ccccccccccccccccccccccc}
 &1&2&3&4&5&6&7&8&9&10&11&12&13&14&15&16 \\\hline
 
-v_1&\bullet&\bullet&\alpha_3&\bullet&\bullet&\bullet&\alpha_7&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_1&\beta_1&\beta_1&{\color{blue}\alpha_3}&\beta_1&\beta_1&\beta_1&{\color{blue}\alpha_7}&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1
 \\
-v_2 &\alpha_1 & \alpha_2&\alpha_3&\bullet&\bullet&\bullet&\bullet&\alpha_4&\alpha_5&\alpha_6&\alpha_7&\bullet&\bullet&\bullet&\bullet&\bullet
+w_2 &{\color{blue}\alpha_1} & {\color{blue}\alpha_2}&{\color{blue}\alpha_3}&\beta_2&\beta_2&\beta_2&\beta_2&{\color{blue}\alpha_4}&{\color{blue}\alpha_5}&{\color{blue}\alpha_6}&{\color{blue}\alpha_7}&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2
 \\
-v_3&\bullet&\alpha_2&\bullet&\bullet&\bullet&\alpha_6&\alpha_7&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_3&\beta_3&{\color{blue}\alpha_2}&\beta_3&\beta_3&\beta_3&{\color{blue}\alpha_6}&{\color{blue}\alpha_7}&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3
 \\
-v_4&\bullet&\bullet&\bullet&\alpha_4&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\alpha_1
+w_4&\beta_4&\beta_4&\beta_4&{\color{blue}\alpha_4}&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&{\color{blue}\alpha_1}
 \\
-v_5&\alpha_1&\bullet&\bullet&\alpha_4&\alpha_5&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\alpha_2&\alpha_3&\alpha_6&\alpha_7&\bullet&
+w_5&{\color{blue}\alpha_1}&\beta_5&\beta_5&{\color{blue}\alpha_4}&{\color{blue}\alpha_5}&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&{\color{blue}\alpha_2}&{\color{blue}\alpha_3}&{\color{blue}\alpha_6}&{\color{blue}\alpha_7}&\beta_5&
 \\
-v_6&\bullet&\bullet&\bullet&\bullet&\alpha_5&\alpha_6&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&
+w_6&\beta_6&\beta_6&\beta_6&\beta_6&{\color{blue}\alpha_5}&{\color{blue}\alpha_6}&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&
 \\
-t&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+t&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7
 
 \end{array}$$
 
 $$\begin{array}{c|cccccccccccccccccccccccccccccccccccccccccc}
 &17&18&19&20&21&22&23&24&25&26&27&28&29&30&31&32\ \\\hline
 
-v_1&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\alpha_1&\alpha_2&
+w_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&{\color{blue}\alpha_1}&{\color{blue}\alpha_2}&
 \\
-v_2 &\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_2 &\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2
 \\
-v_3&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\alpha_1&\alpha_3&\alpha_4&\alpha_5&\bullet&\bullet
+w_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&{\color{blue}\alpha_1}&{\color{blue}\alpha_3}&{\color{blue}\alpha_4}&{\color{blue}\alpha_5}&\beta_3&\beta_3
 \\
-v_4&\alpha_2&\alpha_3&\alpha_5&\alpha_6&\alpha_7&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_4&{\color{blue}\alpha_2}&{\color{blue}\alpha_3}&{\color{blue}\alpha_5}&{\color{blue}\alpha_6}&{\color{blue}\alpha_7}&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4
 \\
-v_5&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5
 \\
-v_6&\bullet&\bullet&\bullet&\bullet&\bullet&\alpha_1&\alpha_2&\alpha_3&\alpha_4&\alpha_7&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&{\color{blue}\alpha_1}&{\color{blue}\alpha_2}&{\color{blue}\alpha_3}&{\color{blue}\alpha_4}&{\color{blue}\alpha_7}&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6
 \\
-t&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+t&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7&\beta_7
 
 \end{array}$$
 
 
 $$\begin{array}{c|cccccccccccccccccccccccccccccccccccccccccc}
-&33&34&35&36&37&38&39&40&41&42\ \\\hline
+&33&34&35&36&37&38&39&40&41&42&43\\\hline
 
-v_1&\alpha_4&\alpha_5&\alpha_6&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_1&{\color{blue}\alpha_4}&{\color{blue}\alpha_5}&{\color{blue}\alpha_6}&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1&\beta_1
 \\
-v_2 &\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_2 &\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2&\beta_2
 \\
-v_3&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3&\beta_3
 \\
-v_4&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4&\beta_4
 \\
-v_5&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5&\beta_5
 \\
-v_6&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet&\bullet
+w_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_6&\beta_5
 \\
-t&\bullet&\bullet&\bullet&\alpha_1&\alpha_2&\alpha_3&\alpha_4&\alpha_5&\alpha_6&\alpha_7
+t&\beta_7&\beta_7&\beta_7&{\color{blue}\alpha_1}&{\color{blue}\alpha_2}&{\color{blue}\alpha_3}&{\color{blue}\alpha_4}&{\color{blue}\alpha_5}&{\color{blue}\alpha_6}&{\color{blue}\alpha_7}&\beta_7
 
 \end{array}$$
 
-Bullets are chosen uniquely from $ \{\beta_{i}\}^{245}_{i=1}$. Notice that $\{w_2, w_5\}$, and  $\{w_2, w_5\}$ cover all words but the target $t$. All other sets of words do not cover the whole set or contain more words.  
+ Notice that $\{w_2, w_5\}$, and  $\{w_3, w_5\}$ cover all words but the target $t$. All other sets of words do not cover the whole set or contain more words.  
+ 
+ 
+ 
+
 \end{document}
